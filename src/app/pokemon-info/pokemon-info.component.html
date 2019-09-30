@@ -1,11 +1,10 @@
 
 
 <div class="card" *ngIf="pokemon">
-  <h1>{{pokemon}}</h1>
-  <h2 style="font-style: italic">{{pokemon.id}}</h2>
+  <h2 style="font-style: italic">{{pokemon.name}} {{pokemon.id}}</h2>
 
 
   <ul>
-    <li *ngFor="let s of pokemon.stats">{{s}}</li>
+    <li *ngFor="let s of pokemon.stats">{{s.stat.name}} : {{s.base_stat}}</li>
   </ul>
 </div>

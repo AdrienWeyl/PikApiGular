@@ -9,26 +9,21 @@ import {PokeApiService} from '../poke-api.service';
   styleUrls: ['./pokemon-info.component.scss']
 })
 export class PokemonInfoComponent implements OnInit {
-  pokemon : Pokemon = new Pokemon(0, "")
+  pokemon : Pokemon
   constructor(public transfert : TransfertService , private api : PokeApiService) {
   }
 
-  getPokemon(){
-    this.transfert.getPokemon.subscribe(id => {
-      console.log("coucou")
-      if(id !== undefined) {
-        this.api.getPokemon(id).subscribe((data: {}) => {
+  ngOnInit() {
+    const pokemonObservable = this.transfert.getPokemonObservable();
+    pokemonObservable.subscribe((data) => {
+      if(data !== undefined) {
+        this.api.getPokemon(data).subscribe((data: {}) => {
           console.log(data["stats"])
-          this.pokemon = new Pokemon(0, "")
+          this.pokemon = new Pokemon(data["id"], data["name"]);
           this.pokemon.stats = data["stats"];
         })
       }
-    })
-    return this.pokemon
-  }
-
-  ngOnInit() {
-    this.getPokemon()
+    });
   }
 
 }

@@ -34,7 +34,7 @@ export class MyComponentComponent implements OnInit {
   private extract(data: any) {
     this.pokemons = [];
     for(let pok in data){
-      this.pokemons.push(new Pokemon((pok+1), data[pok].name))
+      this.pokemons.push(new Pokemon(parseInt(pok)+1, data[pok].name))
     }
   }
 }
