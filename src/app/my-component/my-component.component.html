@@ -1,13 +1,30 @@
 <div style="text-align:center">
-  <input [(ngModel)]="id"/>
   <div>
+    <input [(ngModel)]="id"/>
     <input readonly [(ngModel)]="id"/>
   </div>
+
   <div>
-    <select>
-      <option *ngFor="let pokemon of pokemons" [value]="pokemon.id">
+    <input [(ngModel)]="filter" placeholder="Filter"/>
+  </div>
+  <div>
+    <select required [(ngModel)]="choix">
+      <option [ngValue]="undefined" selected hidden>Select a pokémon</option>
+      <option *ngFor="let pokemon of pokemons | filterPokemonPipe : 'name' : filter "[ngValue]="pokemon">
         {{pokemon.name}}
       </option>
     </select>
+  </div>
+
+
+<!--  <div *ngIf="choix">
+    <span *ngFor="let pokemon of pokemons">
+      <span *ngIf="pokemon.id == choix">Vous avez selectionné {{pokemon.name}} ({{choix}})</span>
+    </span>
+  </div>-->
+
+
+  <div>
+    <button (click)="go()" [disabled]="!choix">Go !</button>
   </div>
 </div>
